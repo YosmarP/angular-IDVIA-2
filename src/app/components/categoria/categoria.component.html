@@ -1,0 +1,52 @@
+<!-- Creación del formulario -->
+<div class="row">
+    <div class="card col-3">
+        <div class="card-body">
+            <form [formGroup] = "categoriaForm" (ngSubmit)="agregarCategoria()">
+                <div class="form-group">
+                    <label for="categoria">Nombre de la categoria</label>
+                    <input type="text" class="form-control" id="categoria" formControlName="nombreCategoria">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Datos</label>
+                    <input type="text" class="form-control" id="categoria" formControlName="datosCategoria" required>
+                    <small id="emailHelp" class="form-text text-muted">Datos separados por una , ejem: 1,2,3</small>
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Color de la gráfica</label>
+                    <!-- Input que permite seleccionar el color de la paleta -->
+                    <input class="form-control" [(colorPicker)]="color" [style.background]="color" formControlName="colorCategoria" readonly/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" [disabled]="!categoriaForm.valid">{{textButton}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Creación de la tabla  -->
+    <div class="col-9">
+        <table class="table">
+            <thead class="thead-dark text-center">
+                <tr>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">DATOS</th>
+                    <th scope="col">COLOR</th>
+                    <th scope="col">OPCION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let categoria of categorias2">
+                    <td>{{categoria.nombreCategoria}}</td>
+                    <td>{{categoria.datosCategoria}}</td>
+                    <td>
+                    <input class="form-control" [(colorPicker)]="categoria.colorCategoria" [style.background]="categoria.colorCategoria" readonly disabled/>
+                    </td>
+                    <td>                        
+                        <button class="btn btn-danger" (click)="borrarCategoria(categoria.idCategoria)">Borrar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
